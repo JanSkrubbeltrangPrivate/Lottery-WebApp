@@ -1,0 +1,69 @@
+body {
+     background-color: rgb(95, 91, 86);
+}
+
+.lottery {
+    margin: auto;
+    width: 400px;
+    border-radius: 15px;
+    font-size: 12pt;
+    padding: 15px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgb(171, 171, 206);
+}
+
+.header {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 18pt;
+    font-weight: bold;
+    margin-bottom: 8px;
+    font-variant: small-caps;
+}
+
+
+
+
+button {
+    background-color: rgb(194, 233, 233);
+}
+.member-title {
+    margin-bottom: 10px;
+}
+
+.member-section {
+    margin-bottom: 10px;
+}
+
+.member-rows {
+    display: grid;
+    grid-template-columns: 280px 100px;
+    margin-bottom: 10px;   
+    
+}
+
+.member-name {
+    padding: 5px 10px 5px 5px;
+    background-color: rgb(250, 238, 224);
+}
+
+.member-ticket {
+    padding: 5px;
+    background-color: rgb(250, 238, 224);
+    text-align: center;
+    
+}
+
+.tickets {
+    margin-bottom: 10px;
+}
+
+.ticket-holder {
+    width: 180px;
+}
+
+.draw {
+    margin-bottom: 10px;
+}
