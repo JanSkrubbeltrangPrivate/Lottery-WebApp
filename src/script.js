@@ -94,6 +94,9 @@ function RenderMemberLines(data) {
 
         })
     }
+    
+    const totalSpan = document.getElementById("total-tickets")
+    totalSpan.innerText = GetNumberofTickets(data)
     SetSelector(data)
     SavetoLocalStorage("LotteryData", data)
 }
