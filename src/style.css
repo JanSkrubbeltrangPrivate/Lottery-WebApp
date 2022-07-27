@@ -64,6 +64,10 @@ button {
     width: 180px;
 }
 
+.ticket-quantity {
+    width: 50px;
+}  
+
 .draw {
     margin-bottom: 10px;
 }

@@ -3,26 +3,35 @@ const DATA = LoadFromLocalStorage("LotteryData")
 RenderMemberLines(DATA)
 
 function SavetoLocalStorage(key, Data) {
-    const jsonString = JSON.stringify(Data);
+    const telegram = { Version : "1.0", Data: Data}
+    
+    const jsonString = JSON.stringify(telegram);
     window.localStorage.setItem(key, jsonString)
 }
 
 function LoadFromLocalStorage(key) {
     const jsonString = window.localStorage.getItem(key)
     if (jsonString == null) return []    
-    return JSON.parse(jsonString)
+    const storedData = JSON.parse(jsonString)
+    if (storedData == null) return []
+    if (Array.isArray(storedData)) {
+        return storedData
+    } else {
+        return storedData.Data;
+    }
 }
 
 function GiveTicket() {
     const SelectorContainer = document.querySelector(".ticket-holder")
     const member = SelectorContainer.value
+    const quantity = document.querySelector(".ticket-quantity")
     if (member == "") return
+    if (quantity == null) return
     const found = DATA.filter(data => data.name == member)
     if (found.length > 0) {
-        found[0].tickets++
-
+        found[0].tickets += parseInt(quantity.value, 10)
     } else {
-        const newRec = { name: member, tickets: 1 }
+        const newRec = { name: member, tickets: parseInt(quantity.value, 10) }
         DATA.push(newRec)
     }
     RenderMemberLines(DATA)
@@ -32,14 +41,13 @@ function GiveTicket() {
 function TakeTicket() {
     const SelectorContainer = document.querySelector(".ticket-holder")
     const member = SelectorContainer.value
-    if (member == "") {
-        alert()
-        return
-    }
+    const quantity = document.querySelector(".ticket-quantity")
+    if (member == "") return
+    if (quantity == null) return
     const found = DATA.filter(data => data.name == member)
     if (found.length > 0) {
-        if (found[0].tickets > 1) {
-            found[0].tickets--
+        if (found[0].tickets > parseInt(quantity.value, 10)) {
+            found[0].tickets -= parseInt(quantity.value, 10)
         } else {
             const index = DATA.map(e => e.name).indexOf(member);
             DATA.splice(index, 1)
@@ -96,7 +104,9 @@ function RenderMemberLines(data) {
     }
     
     const totalSpan = document.getElementById("total-tickets")
-    totalSpan.innerText = GetNumberofTickets(data)
+    if (totalSpan != null) totalSpan.innerText = GetNumberofTickets(data)
+    const quantity = document.querySelector(".ticket-quantity")
+    if (quantity != null) quantity.value = 1
     SetSelector(data)
     SavetoLocalStorage("LotteryData", data)
 }
