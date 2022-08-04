@@ -70,16 +70,55 @@ function ClearTickets() {
 
 function DrawTicket() {
     if (DATA.length == 0) return
-    const numberofTickets = GetNumberofTickets(DATA)
+    
+    const sortedData = DATA.sort((a, b) => a.name.localeCompare(b.name))
+    
+    const numberofTickets = GetNumberofTickets(sortedData)
     let draw = Math.floor(Math.random() * numberofTickets) + 1
-    for (let i = 0; i < DATA.length; i++) {
-        if (draw > DATA[i].tickets) {
-            draw -= DATA[i].tickets
-        } else {
-            alert("Winner is " + DATA[i].name)
-            return
-        }
+    const total = document.getElementById("winner-tickets")
+    const drawn = document.getElementById("winner-ticket")
+    const window = document.querySelector(".winner-banner")
+    window.hidden = false
+    SetButtonState(true)
+    total.innerText = numberofTickets
+    drawn.innerText = draw
+    const players = document.querySelector(".winner-list")
+    while (players.firstChild) {
+        players.removeChild(players.lastChild) }
+    let index = 0    
+    let winner
+    for (let i = 0; i < sortedData.length; i++) {
+        const playerDiv = document.createElement("div")
+        const player = sortedData[i]
+        const start = index+1
+        const end = player.tickets+index
+        playerDiv.innerText = `${player.name} (${start} - ${end})`
+        players.append(playerDiv)
+        index += player.tickets
+        if(start<=draw && draw<=end) winner = player;
     }
+    const playerDiv = document.createElement("div")
+    playerDiv.innerText = `Winner is ${winner.name}`
+    playerDiv.classList.add('winner-name')
+    window.append(playerDiv)
+
+}
+
+function SetButtonState(state) {
+    const add = document.querySelector(".ticket-add")
+    const remove = document.querySelector(".ticket-remove")
+    const draw = document.querySelector(".draw-ticket")
+    const clear = document.querySelector(".clear-ticket")
+    add.disabled = state;
+    remove.disabled = state;
+    draw.disabled = state;
+    clear.disabled = state;
+}
+
+function HideWinner() {
+    const window = document.querySelector(".winner-banner")
+    window.hidden = true;
+    SetButtonState(false)
 }
 
 function RenderMemberLines(data) {

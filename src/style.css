@@ -15,6 +15,49 @@ body {
     background-color: rgb(171, 171, 206);
 }
 
+
+.winner-banner {
+    z-index: 1;;
+    margin: auto;
+    width: 300px;
+    border-radius: 15px;
+    font-size: 12pt;
+    padding: 15px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgb(171, 206, 173);
+}
+
+.winner-heading {
+    font-size: 24px;
+    font-weight: bolder;
+    margin-bottom: 10px;
+    text-align: center;
+
+}
+
+.winner-name {
+    font-size: 24px;
+    font-weight: bolder;
+    margin-top: 10px;
+    text-align: center;
+
+}
+
+
+.winner-close {
+    position: fixed;
+    width: 10px;
+    height: 18px;
+    background-color: red;
+    padding: 10px;
+    right: 10px;
+    top: 10px;
+    cursor: pointer;
+    border-radius: 15px;
+}
 .header {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 18pt;
