@@ -78,6 +78,8 @@ function DrawTicket() {
     const total = document.getElementById("winner-tickets")
     const drawn = document.getElementById("winner-ticket")
     const window = document.querySelector(".winner-banner")
+    const winnerfound = document.querySelector(".winner-name")
+    if (winnerfound) window.removeChild(winnerfound)
     window.hidden = false
     SetButtonState(true)
     total.innerText = numberofTickets
