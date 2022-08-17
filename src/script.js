@@ -210,16 +210,11 @@ function getContent() {
         if(files.length == 1) {
             const contents = await files[0].text()
             const data = parseJsonString(contents)
-    
             validateContent(data)
             DATA = data
             RenderMemberLines(DATA)
-                    
-            
         }
         return "[]"
-
-
     }
     input.click()
 
