@@ -13,15 +13,17 @@ function SavetoLocalStorage(key, Data) {
 function LoadFromLocalStorage(key) {
     const jsonString = window.localStorage.getItem(key)
     const data = parseJsonString(jsonString)
+    validateContent(data)
     return data
 }
 
-function parseJsonString(Input) {
-    if (Input == null) return []    
-    const storedData = JSON.parse(Input)
+function parseJsonString(input) {
+    if (input == null) return []    
+    const storedData = JSON.parse(input)
     if (storedData == null) return []
     if (!Array.isArray(storedData)) {
         if(storedData.Data !== null) {
+            console.log("sent")
             return storedData.Data;    
         }
     }
@@ -170,7 +172,6 @@ function SetSelector(members) {
 
     members.sort().forEach(value => {
         const option = document.createElement("option")
-        //memberName.value = value
         option.text = value.name
         SelectorContainer.append(option)
     })
@@ -181,18 +182,57 @@ function ExportTickets() {
     download(jsonString, 'Tickets.txt', 'text/plain')
 }
 
-async function ImportTickets() {
+function ImportTickets() {
+    getContent()
+    /*
+    const contents = await getContentAsync()
+    const data = parseJsonString(contents)
+    
+    validateContent(data)
+    DATA = data
+    RenderMemberLines(DATA)
+    */
+}
+
+async function getContentAsync() {
     let [fh] = await window.showOpenFilePicker()
     const file = await fh.getFile()
     const contents = await file.text()
-    var data = parseJsonString(contents)
-    if (!Array.isArray(data)) return
-    data.forEach(item => {
+    return contents
+}
+
+function getContent() {
+    let filelist
+    let input = document.createElement('input')
+    input.type = "file"
+    input.onchange = async item => {
+        let files =   Array.from(input.files);
+        if(files.length == 1) {
+            const contents = await files[0].text()
+            const data = parseJsonString(contents)
+    
+            validateContent(data)
+            DATA = data
+            RenderMemberLines(DATA)
+                    
+            
+        }
+        return "[]"
+
+
+    }
+    input.click()
+
+}
+
+function validateContent(contents) {
+    if (!Array.isArray(contents)) throw "Unknown FileFormat"
+    contents.forEach(item => {
         if(!item.hasOwnProperty("tickets") || !item.hasOwnProperty("name")) throw "Unknown FileFormat"
     })
-    DATA = data
-    RenderMemberLines(DATA)
 }
+
+
 
 function download(content, fileName, contentType) {
     var a = document.createElement("a")
