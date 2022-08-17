@@ -1,4 +1,5 @@
-const DATA = LoadFromLocalStorage("LotteryData")
+const KEY = "LotteryData"
+let DATA = LoadFromLocalStorage(KEY)
 
 RenderMemberLines(DATA)
 
@@ -11,14 +12,22 @@ function SavetoLocalStorage(key, Data) {
 
 function LoadFromLocalStorage(key) {
     const jsonString = window.localStorage.getItem(key)
-    if (jsonString == null) return []    
-    const storedData = JSON.parse(jsonString)
+    const data = parseJsonString(jsonString)
+    return data
+}
+
+function parseJsonString(Input) {
+    if (Input == null) return []    
+    const storedData = JSON.parse(Input)
     if (storedData == null) return []
-    if (Array.isArray(storedData)) {
-        return storedData
-    } else {
-        return storedData.Data;
+    if (!Array.isArray(storedData)) {
+        if(storedData.Data !== null) {
+            return storedData.Data;    
+        }
     }
+    return [] 
+
+
 }
 
 function GiveTicket() {
@@ -149,7 +158,7 @@ function RenderMemberLines(data) {
     const quantity = document.querySelector(".ticket-quantity")
     if (quantity != null) quantity.value = 1
     SetSelector(data)
-    SavetoLocalStorage("LotteryData", data)
+    SavetoLocalStorage(KEY, data)
 }
 
 function SetSelector(members) {
@@ -165,5 +174,30 @@ function SetSelector(members) {
         option.text = value.name
         SelectorContainer.append(option)
     })
+}
 
+function ExportTickets() {
+    const jsonString = window.localStorage.getItem(KEY)
+    download(jsonString, 'Tickets.txt', 'text/plain')
+}
+
+async function ImportTickets() {
+    let [fh] = await window.showOpenFilePicker()
+    const file = await fh.getFile()
+    const contents = await file.text()
+    var data = parseJsonString(contents)
+    if (!Array.isArray(data)) return
+    data.forEach(item => {
+        if(!item.hasOwnProperty("tickets") || !item.hasOwnProperty("name")) throw "Unknown FileFormat"
+    })
+    DATA = data
+    RenderMemberLines(DATA)
+}
+
+function download(content, fileName, contentType) {
+    var a = document.createElement("a")
+    var file = new Blob([content], {type: contentType})
+    a.href = URL.createObjectURL(file)
+    a.download = fileName
+    a.click()
 }

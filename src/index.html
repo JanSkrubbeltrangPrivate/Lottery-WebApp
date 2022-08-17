@@ -13,7 +13,7 @@
 <body>
     <div class="lottery">
         <div class="header">
-            Lottery            
+            Lottery
         </div>
         <div class="member-section">
             <div class="member-title">Participants:</div>
@@ -21,17 +21,25 @@
             <div class="member-total">Total: <span id="total-tickets"></span></div>
         </div>
         <div class="tickets">
-            <input type="text" class="ticket-holder" list="ticket-holder-list">
-            <input type="number" class="ticket-quantity">
+            <input type="text" class="ticket-holder textbox" list="ticket-holder-list">
+            <input type="number" class="ticket-quantity textbox">
             <datalist class="ticket-holders" id="ticket-holder-list"></datalist>
-            <button class="ticket-add" onclick="GiveTicket()">Add Ticket</button>
-            <button class="ticket-remove" onclick="TakeTicket()">Remove Ticket</button>
+            <button class="ticket-add button" onclick="GiveTicket()">Add Ticket</button>
+            <button class="ticket-remove button" onclick="TakeTicket()">Remove Ticket</button>
         </div>
-        <div class="draw">
-            <button class="draw-ticket" onclick="DrawTicket()">Draw Ticket</button>
-        </div>
-        <div class="clear">
-            <button class="clear-ticket" onclick="ClearTickets()">Clear all tickets</button>
+        <div class="buttons">
+            <div class="draw">
+                <button class="draw-ticket button" onclick="DrawTicket()">Draw Ticket</button>
+            </div>
+            <div class="clear">
+                <button class="clear-ticket button" onclick="ClearTickets()">Clear all tickets</button>
+            </div>
+            <div class="import">
+                <button class="import-tickets button" onclick="ImportTickets()">Import</button>
+            </div>
+            <div class="export">
+                <button class="export-tickets button" onclick="ExportTickets()">Export</button>
+            </div>
         </div>
     </div>
     <div class="winner-banner" hidden>
