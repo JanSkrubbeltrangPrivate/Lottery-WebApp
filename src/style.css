@@ -79,15 +79,15 @@ body {
     padding-left: 5px;
 }
 
-.participants-title {
+.participant-title {
     font-weight: bold;
 }
 
-.participants-section {
+.participant-section {
     margin-bottom: 10px;
 }
 
-.participants-rows {
+.participant-rows {
     display: grid;
     
     grid-template-columns: 280px 100px;
@@ -97,26 +97,26 @@ body {
     background-color: rgb(250, 238, 224);
 }
 
-.participants-name {
+.participant-name {
     padding: 0px 0px 5px 10px;
     display:flex;
     
 }
 
-.participants-name:after {
+.participant-name:after {
     border-bottom: 1px dotted black;
     content: '';
     flex: 1;
 }
 
-.participants-ticket {
+.participant-ticket {
     display: flex;
     padding: 0px 10px 5px 0px;
     justify-content: right;
 
 }
 
-.participants-ticket::before {
+.participant-ticket::before {
     border-bottom: 1px dotted black;
     content: '';
     flex: 1;

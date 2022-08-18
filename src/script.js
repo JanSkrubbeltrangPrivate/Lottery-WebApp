@@ -1,7 +1,7 @@
 const KEY = "LotteryData"
 let DATA = LoadFromLocalStorage(KEY)
 
-RenderparticipantsLines(DATA)
+RenderparticipantLines(DATA)
 
 function SavetoLocalStorage(key, Data) {
     const telegram = { Version: "1.0", Data: Data }
@@ -33,37 +33,37 @@ function parseJsonString(input) {
 
 function GiveTicket() {
     const SelectorContainer = document.querySelector(".ticket-holder")
-    const participants = SelectorContainer.value
+    const participant = SelectorContainer.value
     const quantity = document.querySelector(".ticket-quantity")
-    if (participants == "") return
+    if (participant == "") return
     if (quantity == null) return
-    const found = DATA.filter(data => data.name == participants)
+    const found = DATA.filter(data => data.name == participant)
     if (found.length > 0) {
         found[0].tickets += parseInt(quantity.value, 10)
     } else {
-        const newRec = { name: participants, tickets: parseInt(quantity.value, 10) }
+        const newRec = { name: participant, tickets: parseInt(quantity.value, 10) }
         DATA.push(newRec)
     }
-    RenderparticipantsLines(DATA)
+    RenderparticipantLines(DATA)
     SelectorContainer.value = ""
 }
 
 function TakeTicket() {
     const SelectorContainer = document.querySelector(".ticket-holder")
-    const participants = SelectorContainer.value
+    const participant = SelectorContainer.value
     const quantity = document.querySelector(".ticket-quantity")
-    if (participants == "") return
+    if (participant == "") return
     if (quantity == null) return
-    const found = DATA.filter(data => data.name == participants)
+    const found = DATA.filter(data => data.name == participant)
     if (found.length > 0) {
         if (found[0].tickets > parseInt(quantity.value, 10)) {
             found[0].tickets -= parseInt(quantity.value, 10)
         } else {
-            const index = DATA.map(e => e.name).indexOf(participants);
+            const index = DATA.map(e => e.name).indexOf(participant);
             DATA.splice(index, 1)
         }
     }
-    RenderparticipantsLines(DATA)
+    RenderparticipantLines(DATA)
     SelectorContainer.value = ""
 }
 
@@ -74,7 +74,7 @@ function GetNumberofTickets(data) {
 function ClearTickets() {
     if (confirm("Are you sure you want to clear all tickets?")) {
         while (DATA.length > 0) DATA.pop()
-        RenderparticipantsLines(DATA)
+        RenderparticipantLines(DATA)
     }
 }
 
@@ -129,23 +129,23 @@ function HideWinner() {
     SetButtonState(false)
 }
 
-function RenderparticipantsLines(data) {
+function RenderparticipantLines(data) {
 
-    const participantsContainer = document.querySelector(".participants-rows")
+    const participantContainer = document.querySelector(".participant-rows")
 
-    while (participantsContainer.firstChild) {
-        participantsContainer.removeChild(participantsContainer.lastChild)
+    while (participantContainer.firstChild) {
+        participantContainer.removeChild(participantContainer.lastChild)
     }
     if (data.length > 0) {
         data.sort((a, b) => a.name.localeCompare(b.name)).forEach(value => {
             const name = document.createElement('div')
             name.textContent = value.name
-            name.classList.add("participants-name")
-            participantsContainer.append(name);
+            name.classList.add("participant-name")
+            participantContainer.append(name);
             const tickets = document.createElement('div')
             tickets.textContent = value.tickets
-            tickets.classList.add("participants-ticket")
-            participantsContainer.append(tickets)
+            tickets.classList.add("participant-ticket")
+            participantContainer.append(tickets)
 
         })
     }
@@ -158,14 +158,14 @@ function RenderparticipantsLines(data) {
     SavetoLocalStorage(KEY, data)
 }
 
-function SetSelector(participantss) {
+function SetSelector(participants) {
     const SelectorContainer = document.querySelector(".ticket-holders")
 
     while (SelectorContainer.firstChild) {
         SelectorContainer.removeChild(SelectorContainer.lastChild)
     }
 
-    participantss.sort().forEach(value => {
+    participants.sort().forEach(value => {
         const option = document.createElement("option")
         option.text = value.name
         SelectorContainer.append(option)
@@ -207,7 +207,7 @@ function getContent() {
                 return
             }
             DATA = data
-            RenderparticipantsLines(DATA)
+            RenderparticipantLines(DATA)
         }
         return "[]"
     }
