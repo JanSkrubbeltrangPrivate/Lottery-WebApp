@@ -58,6 +58,7 @@ body {
     cursor: pointer;
     border-radius: 15px;
 }
+
 .header {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 18pt;
@@ -78,31 +79,47 @@ body {
     padding-left: 5px;
 }
 
-.member-title {
+.participants-title {
+    font-weight: bold;
+}
+
+.participants-section {
     margin-bottom: 10px;
 }
 
-.member-section {
-    margin-bottom: 10px;
-}
-
-.member-rows {
+.participants-rows {
     display: grid;
+    
     grid-template-columns: 280px 100px;
     margin-bottom: 10px;   
-    
-}
-
-.member-name {
-    padding: 5px 10px 5px 5px;
+    padding: 10px;
+    border-radius: 10px;
     background-color: rgb(250, 238, 224);
 }
 
-.member-ticket {
-    padding: 5px;
-    background-color: rgb(250, 238, 224);
-    text-align: center;
+.participants-name {
+    padding: 0px 0px 5px 10px;
+    display:flex;
     
+}
+
+.participants-name:after {
+    border-bottom: 1px dotted black;
+    content: '';
+    flex: 1;
+}
+
+.participants-ticket {
+    display: flex;
+    padding: 0px 10px 5px 0px;
+    justify-content: right;
+
+}
+
+.participants-ticket::before {
+    border-bottom: 1px dotted black;
+    content: '';
+    flex: 1;
 }
 
 .tickets {
@@ -110,11 +127,11 @@ body {
 }
 
 .ticket-holder {
-    width: 123px;
+    width: 113px;
 }
 
 .ticket-quantity {
-    width: 40px;
+    width: 38px;
 }  
 
 .draw {
