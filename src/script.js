@@ -88,10 +88,11 @@ function DrawTicket() {
         let draw = Math.floor(Math.random() * numberofTickets) + 1
         const total = document.getElementById("winner-tickets")
         const drawn = document.getElementById("winner-ticket")
-        const window = document.querySelector(".winner-banner")
+        const window = document.querySelector(".winner-plaque")
+        const background = document.querySelector(".winner-banner")
         const winnerfound = document.querySelector(".winner-name")
         if (winnerfound) window.removeChild(winnerfound)
-        window.hidden = false
+        background.hidden = false
         SetButtonState(true)
         total.innerText = numberofTickets
         drawn.innerText = draw
